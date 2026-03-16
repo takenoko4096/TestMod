@@ -1,12 +1,10 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.3.0"
     id("fabric-loom") version "1.15-SNAPSHOT"
     id("maven-publish")
-    id("com.gradleup.shadow") version "9.1.0"
 }
 
 version = "1.0-SNAPSHOT"
@@ -62,6 +60,7 @@ tasks {
         inputs.property("version", project.version)
         inputs.property("minecraft_version", project.property("minecraft_version"))
         inputs.property("loader_version", project.property("loader_version"))
+        inputs.property("kotlin_loader_version", project.property("kotlin_loader_version"))
         filteringCharset = "UTF-8"
 
         filesMatching("fabric.mod.json") {
@@ -85,15 +84,6 @@ tasks {
 
     withType<KotlinCompile>().configureEach {
         compilerOptions.jvmTarget.set(JvmTarget.fromTarget(javaVersion.toString()))
-    }
-
-    named<ShadowJar>("shadowJar") {
-        archiveClassifier.set("")
-        // relocate()
-    }
-
-    remapJar {
-        dependsOn(shadowJar)
     }
 
     jar {
