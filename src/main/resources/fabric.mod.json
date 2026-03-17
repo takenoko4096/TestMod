@@ -21,6 +21,9 @@
                 "adapter": "kotlin",
                 "value": "com.gmail.takenokoii78.testmod.TestMod"
             }
+        ],
+        "fabric-datagen": [
+            "com.gmail.takenokoii78.testmod.TestModClientDataGenerator"
         ]
     },
     "mixins": [

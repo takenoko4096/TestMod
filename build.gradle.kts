@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "2.3.0"
-    id("fabric-loom") version "1.15-SNAPSHOT"
+    id("net.fabricmc.fabric-loom-remap")
     id("maven-publish")
 }
 
@@ -21,7 +21,7 @@ java {
     // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
     // if it is present.
     // If you remove this line, sources will not be generated.
-    withSourcesJar()
+    // withSourcesJar()
 }
 
 loom {
@@ -32,6 +32,12 @@ loom {
             sourceSet("main")
             sourceSet("client")
         }
+    }
+}
+
+fabricApi {
+    configureDataGeneration {
+        client = true
     }
 }
 
