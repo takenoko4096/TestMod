@@ -4,7 +4,7 @@ import net.fabricmc.api.ModInitializer
 
 object TestMod : ModInitializer {
     override fun onInitialize() {
-        BlockRegistrar.WHITE_LEAVES // load
+        BlockRegistrar // load
     }
 
     const val NAMESPACE: String = "testmod"

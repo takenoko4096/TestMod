@@ -39,4 +39,16 @@ object BlockRegistrar {
         itemSettings = Item.Properties()
             .overrideDescription("block." + TestMod.NAMESPACE + ".white_leaves")
     )
+
+    val METAL_BLOCK: Block = register(
+        id = "metal_block",
+        factory = { s ->
+            return@register Block(s)
+        },
+        blockSettings = BlockBehaviour.Properties.of()
+            .strength(4.0f)
+            .sound(SoundType.METAL),
+        itemSettings = Item.Properties()
+            .overrideDescription("block." + TestMod.NAMESPACE + ".metal_block")
+    )
 }
