@@ -1,5 +1,6 @@
 package com.gmail.takenokoii78.testmod
 
+import io.github.takenoko4096.starlight.client.datagen.StarlightDataGenerator
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
@@ -10,8 +11,8 @@ import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.core.HolderLookup
 import java.util.concurrent.CompletableFuture
 
-object TestModClientDataGenerator : DataGeneratorEntrypoint {
-    override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
+object TestModClientDataGenerator : StarlightDataGenerator(TestMod) {
+    override fun onInitialize(fabricDataGenerator: FabricDataGenerator) {
         val pack = fabricDataGenerator.createPack()
         pack.addProvider { output: FabricDataOutput -> TestModelProvider(output) }
         pack.addProvider { output: FabricDataOutput, registryLookup: CompletableFuture<HolderLookup.Provider> -> TestLanguageProvider(output, registryLookup) }

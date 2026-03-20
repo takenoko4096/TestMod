@@ -59,6 +59,10 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_api_version")}")
+
+    modImplementation(files(
+        "../Starlight/build/libs/Starlight-1.0-SNAPSHOT.jar"
+    ))
 }
 
 tasks {
