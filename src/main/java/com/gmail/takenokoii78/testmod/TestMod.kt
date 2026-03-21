@@ -10,24 +10,6 @@ object TestMod : StarlightModInitializer() {
         BlockRegistrar // load
 
         val prismarineLamp = blockRegistry.register("prismarine_lamp") {
-            itemProperties {
-                translationKeyAuto()
-            }
-
-            translation {
-                jaJp = "プリズマリンランプ"
-            }
-
-            rendering {
-                blockModel {
-                    trivialCube()
-                }
-
-                chunkSectionLayer {
-                    solid()
-                }
-            }
-
             val info = customBehaviour {
                 blockStates {
                     booleanProperty("luminance") {
@@ -41,6 +23,34 @@ object TestMod : StarlightModInitializer() {
                 requiresCorrectToolForDrops = true
                 lightLevel {
                     if (it.getValue(info.properties.boolean("luminance"))) 15 else 0
+                }
+            }
+
+            itemProperties {
+                translationKeyAuto()
+            }
+
+            translation {
+                jaJp = "プリズマリンランプ"
+            }
+
+            rendering {
+                blockModel {
+                    val unlit = models.cubeAll(defaultTexturePath) {}
+                    val lit = models.cubeAll(defaultTexturePath.suffixed("on")) {
+                        suffix="on"
+                    }
+
+                    propertyVariants(info.properties.boolean("luminance")) {
+                        unlit.plain().useWhen(false)
+                        lit.plain().useWhen(true)
+                    }
+
+                    unlit.setToDefaultItemModel()
+                }
+
+                chunkSectionLayer {
+                    solid()
                 }
             }
         }

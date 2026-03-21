@@ -2,7 +2,6 @@ package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.starlight.client.datagen.StarlightDataGenerator
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
@@ -36,5 +35,7 @@ object TestModClientDataGenerator : StarlightDataGenerator(TestMod) {
             translationBuilder.add(BlockRegistrar.WHITE_LEAVES, "白めの葉っぱ")
             translationBuilder.add(BlockRegistrar.METAL_BLOCK, "謎金属ブロック")
         }
+
+        override fun getName() = "TestLanguageProvider"
     }
 }
