@@ -2,7 +2,6 @@ package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.starlight.StarlightModInitializer
 import net.minecraft.world.level.block.SoundType
-import net.minecraft.world.level.block.state.properties.Property
 
 object TestMod : StarlightModInitializer() {
     override val identifier: String = "testmod"
@@ -12,9 +11,17 @@ object TestMod : StarlightModInitializer() {
 
         val prismarineLamp = blockRegistry.register("prismarine_lamp") {
             val info = customBehaviour {
-                blockStates {
+                val props = blockStates {
                     booleanProperty("luminance") {
                         defaultValue = false
+                    }
+                }
+
+                events {
+                    onInteract {
+                        val property = props.boolean("luminance")
+                        val value = blockState.getValue(property)
+                        level.setBlockAndUpdate(blockPos, blockState.setValue(property, !value))
                     }
                 }
             }
