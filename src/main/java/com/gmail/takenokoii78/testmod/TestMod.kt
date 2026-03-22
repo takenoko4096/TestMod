@@ -32,27 +32,38 @@ object TestMod : StarlightModInitializer() {
 
             translation {
                 jaJp = "プリズマリンランプ"
+                enUs = "Prismarine Lamp"
             }
 
             rendering {
                 blockModel {
-                    val unlit = models.cubeAll(defaultTexturePath) {}
+                    val unlit = models.cubeAll(defaultTexturePath)
                     val lit = models.cubeAll(defaultTexturePath.suffixed("on")) {
-                        suffix="on"
+                        suffix = "on"
                     }
 
-                    propertyVariants(info.properties.boolean("luminance")) {
-                        unlit.plain().useWhen(false)
-                        lit.plain().useWhen(true)
+                    variants(info.properties.boolean("luminance")) {
+                        unlit.toVariant().useWhen(false)
+                        lit.toVariant().useWhen(true)
                     }
 
-                    unlit.setToDefaultItemModel()
+                    unlit.setAsItemModel()
                 }
 
                 chunkSectionLayer {
                     solid()
                 }
             }
+        }
+
+        translationRegistry.register(BlockRegistrar.WHITE_LEAVES.descriptionId) {
+            enUs = "White Leaves"
+            jaJp = "白めの葉っぱ"
+        }
+
+        translationRegistry.register(BlockRegistrar.METAL_BLOCK.descriptionId) {
+            enUs = "Metal Block"
+            jaJp = "謎金属ブロック"
         }
     }
 

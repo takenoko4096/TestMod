@@ -73,6 +73,7 @@ tasks {
         inputs.property("kotlin_loader_version", project.property("kotlin_loader_version"))
         inputs.property("fabric_api_version", project.property("fabric_api_version"))
         inputs.property("java_version", javaVersion)
+        inputs.property("starlight_version", project.property("starlight_version"))
         filteringCharset = "UTF-8"
 
         filesMatching("fabric.mod.json") {
@@ -82,7 +83,8 @@ tasks {
                 "loader_version" to project.property("loader_version")!!,
                 "kotlin_loader_version" to project.property("kotlin_loader_version")!!,
                 "fabric_api_version" to project.property("fabric_api_version")!!,
-                "java_version" to javaVersion.toString()
+                "java_version" to javaVersion.toString(),
+                "starlight_version" to project.property("starlight_version")!!
             )
         }
     }
