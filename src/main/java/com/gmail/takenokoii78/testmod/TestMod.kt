@@ -2,6 +2,7 @@ package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.starlight.StarlightModInitializer
 import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.state.properties.Property
 
 object TestMod : StarlightModInitializer() {
     override val identifier: String = "testmod"
@@ -19,6 +20,7 @@ object TestMod : StarlightModInitializer() {
             }
 
             blockProperties {
+                destroyTime = 0.5f
                 sound = SoundType.METAL
                 requiresCorrectToolForDrops = true
                 lightLevel {
@@ -53,6 +55,31 @@ object TestMod : StarlightModInitializer() {
                 chunkSectionLayer {
                     solid()
                 }
+            }
+        }
+
+        val testBlock = blockRegistry.register("test_block") {
+            blockProperties {
+                occlusion = false
+            }
+
+            rendering {
+                blockModel {
+                    trivialCube()
+                }
+
+                chunkSectionLayer {
+                    translucent()
+                }
+            }
+
+            itemProperties {
+                translationKeyAuto()
+            }
+
+            translation {
+                jaJp = "テストブロック"
+                enUs = "Test Block"
             }
         }
 
