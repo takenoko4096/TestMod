@@ -10,16 +10,19 @@ object TestMod : StarlightModInitializer() {
         BlockRegistrar // load
 
         val prismarineLamp = blockRegistry.register("prismarine_lamp") {
+            val litProperty = "lit"
+
             val info = customBehaviour {
-                val props = blockStates {
-                    booleanProperty("luminance") {
+                val properties = blockStates {
+                    booleanProperty(litProperty) {
                         defaultValue = false
                     }
                 }
 
                 events {
                     onInteract {
-                        val property = props.boolean("luminance")
+                        properties.boolean(litProperty)
+                        val property = properties.boolean(litProperty)
                         val value = blockState.getValue(property)
                         level.setBlockAndUpdate(blockPos, blockState.setValue(property, !value))
                     }
@@ -31,7 +34,7 @@ object TestMod : StarlightModInitializer() {
                 sound = SoundType.METAL
                 requiresCorrectToolForDrops = true
                 lightLevel {
-                    if (it.getValue(info.properties.boolean("luminance"))) 15 else 0
+                    if (it.getValue(info.properties.boolean(litProperty))) 15 else 0
                 }
             }
 
@@ -45,22 +48,25 @@ object TestMod : StarlightModInitializer() {
             }
 
             rendering {
-                blockModel {
-                    val unlit = models.cubeAll(defaultTexturePath)
-                    val lit = models.cubeAll(defaultTexturePath.suffixed("on")) {
+                models {
+                    val off = blockModels.cubeAll(defaultTexturePaths.block)
+                    val on = blockModels.cubeAll(defaultTexturePaths.block.suffixed("on")) {
                         suffix = "on"
                     }
 
-                    variants(info.properties.boolean("luminance")) {
-                        unlit.toVariant()
-                        unlit.toVariant().useWhen(false)
-                        lit.toVariant().useWhen(true)
+                    block {
+                        variants(info.properties.boolean(litProperty)) {
+                            off.toVariant().useWhen(false)
+                            on.toVariant().useWhen(true)
+                        }
                     }
 
-                    itemModel = unlit
+                    item {
+                        on.useAsItemModel()
+                    }
                 }
 
-                chunkSectionLayer {
+                layer {
                     solid()
                 }
             }
@@ -72,11 +78,13 @@ object TestMod : StarlightModInitializer() {
             }
 
             rendering {
-                blockModel {
-                    trivialCube()
+                models {
+                    block {
+                        trivialCube()
+                    }
                 }
 
-                chunkSectionLayer {
+                layer {
                     translucent()
                 }
             }
