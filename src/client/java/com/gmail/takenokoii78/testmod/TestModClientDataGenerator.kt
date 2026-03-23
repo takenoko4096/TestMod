@@ -1,6 +1,6 @@
 package com.gmail.takenokoii78.testmod
 
-import io.github.takenoko4096.starlight.client.datagen.StarlightDataGenerator
+import io.github.takenoko4096.starlight.datagen.StarlightDataGenerator
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput

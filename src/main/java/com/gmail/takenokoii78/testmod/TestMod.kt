@@ -52,11 +52,12 @@ object TestMod : StarlightModInitializer() {
                     }
 
                     variants(info.properties.boolean("luminance")) {
+                        unlit.toVariant()
                         unlit.toVariant().useWhen(false)
                         lit.toVariant().useWhen(true)
                     }
 
-                    unlit.setAsItemModel()
+                    itemModel = unlit
                 }
 
                 chunkSectionLayer {
