@@ -49,8 +49,8 @@ object TestMod : StarlightModInitializer() {
 
             rendering {
                 models {
-                    val off = blockModels.cubeAll(defaultTexturePaths.block)
-                    val on = blockModels.cubeAll(defaultTexturePaths.block.suffixed("on")) {
+                    val off = blockModels.cubeAll(blockDefaultTexturePath)
+                    val on = blockModels.cubeAll(blockDefaultTexturePath.suffixed("on")) {
                         suffix = "on"
                     }
 
@@ -62,7 +62,7 @@ object TestMod : StarlightModInitializer() {
                     }
 
                     item {
-                        on.useAsItemModel()
+                        off.useAsItemModel()
                     }
                 }
 
