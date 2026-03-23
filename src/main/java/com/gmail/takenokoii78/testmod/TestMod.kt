@@ -66,6 +66,10 @@ object TestMod : StarlightModInitializer() {
                     }
                 }
 
+                tint {
+                    // provide { pos, state, getter -> 0 }
+                }
+
                 layer {
                     solid()
                 }
