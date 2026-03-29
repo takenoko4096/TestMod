@@ -160,7 +160,7 @@ object TestMod : StarlightModInitializer("testmod") {
             }
 
             translation {
-                jaJp = "テストアイテム"
+                jaJp = "テストソード"
             }
 
             rendering {
