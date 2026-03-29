@@ -10,7 +10,7 @@ import net.minecraft.client.data.models.ItemModelGenerators
 object TestModClientDataGenerator : StarlightDataGenerator(TestMod) {
     override fun onInitialize(pack: FabricDataGenerator.Pack) {
         pack.addProvider { output: FabricDataOutput -> TestModelProvider(output) }
-        // Upd 5
+        // Upd 7
     }
 
     class TestModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {

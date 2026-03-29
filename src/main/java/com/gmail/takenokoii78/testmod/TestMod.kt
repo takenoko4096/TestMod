@@ -3,38 +3,38 @@ package com.gmail.takenokoii78.testmod
 import io.github.takenoko4096.starlight.StarlightModInitializer
 import net.minecraft.world.level.block.SoundType
 
-object TestMod : StarlightModInitializer() {
-    override val identifier: String = "testmod"
-
+object TestMod : StarlightModInitializer("testmod") {
     override fun onInitialize() {
         BlockRegistrar // load
 
         val prismarineLamp = blockRegistry.register("prismarine_lamp") {
-            val litProperty = "lit"
+            val lit = "lit"
 
             val info = customBehaviour {
                 val properties = blockStates {
-                    booleanProperty(litProperty) {
+                    booleanProperty(lit) {
                         defaultValue = false
                     }
                 }
 
+                val litProperty = properties.boolean(lit)
+
                 events {
                     onInteract {
-                        properties.boolean(litProperty)
-                        val property = properties.boolean(litProperty)
-                        val value = blockState.getValue(property)
-                        level.setBlockAndUpdate(blockPos, blockState.setValue(property, !value))
+                        val value = blockState.getValue(litProperty)
+                        level.setBlockAndUpdate(blockPos, blockState.setValue(litProperty, !value))
                     }
                 }
             }
+
+            val litProperty = info.properties.boolean(lit)
 
             blockProperties {
                 destroyTime = 0.5f
                 sound = SoundType.METAL
                 requiresCorrectToolForDrops = true
                 lightLevel {
-                    if (it.getValue(info.properties.boolean(litProperty))) 15 else 0
+                    if (it.getValue(litProperty)) 15 else 0
                 }
             }
 
@@ -50,24 +50,20 @@ object TestMod : StarlightModInitializer() {
             rendering {
                 models {
                     val off = blockModels.cubeAll(blockDefaultTexturePath)
-                    val on = blockModels.cubeAll(blockDefaultTexturePath.suffixed("on")) {
+                    val on = blockModels.cubeAll(blockDefaultTexturePath underscore "on") {
                         suffix = "on"
                     }
 
                     block {
-                        variants(info.properties.boolean(litProperty)) {
-                            off.toVariant().useWhen(false)
-                            on.toVariant().useWhen(true)
+                        variants(litProperty) {
+                            off.toBlockVariant().useWhen(false)
+                            on.toBlockVariant().useWhen(true)
                         }
                     }
 
                     item {
                         off.useAsItemModel()
                     }
-                }
-
-                tint {
-                    // provide { pos, state, getter -> 0 }
                 }
 
                 layer {
@@ -83,9 +79,17 @@ object TestMod : StarlightModInitializer() {
 
             rendering {
                 models {
+                    val model = blockModels.cubeAll(blockDefaultTexturePath)
+
                     block {
-                        trivialCube()
+                        variants {
+                            model.toBlockVariant().use()
+                        }
                     }
+                }
+
+                tint {
+                    color = 0x1fff80
                 }
 
                 layer {
@@ -111,6 +115,63 @@ object TestMod : StarlightModInitializer() {
         translationRegistry.register(BlockRegistrar.METAL_BLOCK.descriptionId) {
             enUs = "Metal Block"
             jaJp = "謎金属ブロック"
+        }
+
+        val testSword = itemRegistry.register("test_sword") {
+            itemProperties {
+                translationKeyAuto()
+
+                components {
+                    maxStackSize(1)
+
+                    maxDamage(32)
+                    damage(0)
+
+                    attributeModifiers {
+                        attackSpeed {
+                            slot {
+                                weapon.mainhand()
+                            }
+
+                            operation {
+                                addValue()
+                            }
+
+                            value = -3.5
+                        }
+
+                        attackDamage {
+                            slot {
+                                weapon.mainhand()
+                            }
+
+                            operation {
+                                addValue()
+                            }
+
+                            value = 6.5
+                        }
+                    }
+
+                    enchantable {
+                        enchantmentAptitude = 3
+                    }
+                }
+            }
+
+            translation {
+                jaJp = "テストアイテム"
+            }
+
+            rendering {
+                model {
+                    val model = itemModels.handheld(itemDefaultTexturePath)
+
+                    handling {
+                        use(model)
+                    }
+                }
+            }
         }
     }
 
