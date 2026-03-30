@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.3.0"
-    id("net.fabricmc.fabric-loom-remap")
+    kotlin("jvm") version "2.3.20"
+    id("net.fabricmc.fabric-loom")
     id("maven-publish")
 }
 
@@ -14,7 +14,7 @@ base {
     archivesName.set(project.property("archives_base_name") as String)
 }
 
-val javaVersion = 21
+val javaVersion = 25
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
@@ -22,6 +22,15 @@ java {
     // if it is present.
     // If you remove this line, sources will not be generated.
     withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_25
+    }
 }
 
 loom {
@@ -53,14 +62,12 @@ dependencies {
     // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
 
-    mappings(loom.officialMojangMappings())
+    implementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
+    implementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
 
-    modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
-    modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
+    implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_api_version")}")
 
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_api_version")}")
-
-    modImplementation(files(
+    implementation(files(
         "../Starlight/build/libs/Starlight-1.0-SNAPSHOT.jar"
     ))
 }

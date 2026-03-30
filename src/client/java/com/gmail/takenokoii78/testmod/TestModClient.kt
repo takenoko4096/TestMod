@@ -1,11 +1,9 @@
 package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.starlight.client.StarlightClientModInitializer
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer
 
 object TestModClient : StarlightClientModInitializer(TestMod) {
     override fun onInitialize() {
-        BlockRenderLayerMap.putBlock(BlockRegistrar.WHITE_LEAVES, ChunkSectionLayer.CUTOUT)
+
     }
 }

@@ -5,7 +5,64 @@ import net.minecraft.world.level.block.SoundType
 
 object TestMod : StarlightModInitializer("testmod") {
     override fun onInitialize() {
-        BlockRegistrar // load
+        val whiteLeaves = blockRegistry.register("white_leaves") {
+            blockProperties {
+                occlusion = false
+                sound = SoundType.GRASS
+                destroyTime = 0.5f
+                explosionResistance = 0.5f
+            }
+
+            itemProperties {
+                translationKeyAuto()
+            }
+
+            rendering {
+                models {
+                    val model = blockModels.cubeAll(blockDefaultTexturePath)
+
+                    block {
+                        variants {
+                            model.toBlockVariant().use()
+                        }
+                    }
+                }
+            }
+
+            translation {
+                enUs = "White Leaves"
+                jaJp = "白めの葉っぱ"
+            }
+        }
+
+        val metalBlock = blockRegistry.register("metal_block") {
+            blockProperties {
+                destroyTime = 4.0f
+                explosionResistance = 4.0f
+                sound = SoundType.METAL
+            }
+
+            itemProperties {
+                translationKeyAuto()
+            }
+
+            rendering {
+                models {
+                    val model = blockModels.cubeAll(blockDefaultTexturePath)
+
+                    block {
+                        variants {
+                            model.toBlockVariant().use()
+                        }
+                    }
+                }
+            }
+
+            translation {
+                enUs = "Metal Block"
+                jaJp = "謎金属ブロック"
+            }
+        }
 
         val prismarineLamp = blockRegistry.register("prismarine_lamp") {
             val lit = "lit"
@@ -65,10 +122,6 @@ object TestMod : StarlightModInitializer("testmod") {
                         off.useAsItemModel()
                     }
                 }
-
-                layer {
-                    solid()
-                }
             }
         }
 
@@ -89,11 +142,9 @@ object TestMod : StarlightModInitializer("testmod") {
                 }
 
                 tint {
-                    color = 0x1fff80
-                }
-
-                layer {
-                    translucent()
+                    defaultColor {
+                        0x1fff80
+                    }
                 }
             }
 
@@ -107,51 +158,12 @@ object TestMod : StarlightModInitializer("testmod") {
             }
         }
 
-        translationRegistry.register(BlockRegistrar.WHITE_LEAVES.descriptionId) {
-            enUs = "White Leaves"
-            jaJp = "白めの葉っぱ"
-        }
-
-        translationRegistry.register(BlockRegistrar.METAL_BLOCK.descriptionId) {
-            enUs = "Metal Block"
-            jaJp = "謎金属ブロック"
-        }
-
         val testSword = itemRegistry.register("test_sword") {
             itemProperties {
                 translationKeyAuto()
 
                 components {
-                    maxStackSize(1)
-
-                    maxDamage(32)
-                    damage(0)
-
-                    attributeModifiers {
-                        attackSpeed {
-                            slot {
-                                weapon.mainhand()
-                            }
-
-                            operation {
-                                addValue()
-                            }
-
-                            value = -3.5
-                        }
-
-                        attackDamage {
-                            slot {
-                                weapon.mainhand()
-                            }
-
-                            operation {
-                                addValue()
-                            }
-
-                            value = 6.5
-                        }
-                    }
+                    by(templates.sword(32, 6.5))
 
                     enchantable {
                         enchantmentAptitude = 3
@@ -161,6 +173,7 @@ object TestMod : StarlightModInitializer("testmod") {
 
             translation {
                 jaJp = "テストソード"
+                enUs = "Test Sword"
             }
 
             rendering {
@@ -174,6 +187,4 @@ object TestMod : StarlightModInitializer("testmod") {
             }
         }
     }
-
-    const val NAMESPACE: String = "testmod"
 }
