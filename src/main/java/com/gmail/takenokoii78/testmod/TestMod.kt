@@ -1,6 +1,9 @@
 package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.starlight.StarlightModInitializer
+import io.github.takenoko4096.starlight.util.text.component
+import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
 import net.minecraft.world.level.block.SoundType
 
 object TestMod : StarlightModInitializer("testmod") {
@@ -184,6 +187,22 @@ object TestMod : StarlightModInitializer("testmod") {
                         use(model)
                     }
                 }
+            }
+        }
+
+        commandRegistry.register("foo") {
+            executes {
+                context.source.sendSystemMessage(
+                    component {
+                        color(ChatFormatting.RED.color!!)
+                        text("a")
+                        section {
+                            bold(true)
+                            text("b")
+                        }
+                        text("c")
+                    }
+                )
             }
         }
     }
