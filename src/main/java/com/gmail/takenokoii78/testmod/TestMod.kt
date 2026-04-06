@@ -1,6 +1,10 @@
 package com.gmail.takenokoii78.testmod
 
+import com.gmail.takenokoii78.mojangson.MojangsonParser
+import com.gmail.takenokoii78.mojangson.values.MojangsonCompound
 import io.github.takenoko4096.starlight.StarlightModInitializer
+import io.github.takenoko4096.starlight.util.nbt.NbtSerializer
+import io.github.takenoko4096.starlight.util.text.VanillaColor
 import io.github.takenoko4096.starlight.util.text.component
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -190,19 +194,15 @@ object TestMod : StarlightModInitializer("testmod") {
             }
         }
 
+        val c = MojangsonParser.compound("""
+        {
+            key: value
+        }
+        """)
+
         commandRegistry.register("foo") {
             executes {
-                context.source.sendSystemMessage(
-                    component {
-                        color(ChatFormatting.RED.color!!)
-                        text("a")
-                        section {
-                            bold(true)
-                            text("b")
-                        }
-                        text("c")
-                    }
-                )
+                context.source.sendSystemMessage(NbtSerializer.serialize(c))
             }
         }
     }

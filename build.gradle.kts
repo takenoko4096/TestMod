@@ -56,6 +56,8 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
+
+    mavenLocal()
 }
 
 dependencies {
@@ -67,9 +69,7 @@ dependencies {
 
     implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_api_version")}")
 
-    implementation(files(
-        "../Starlight/build/libs/Starlight-1.0-SNAPSHOT.jar"
-    ))
+    implementation("io.github.takenoko4096:Starlight:1.0-SNAPSHOT")
 }
 
 tasks {
@@ -114,14 +114,31 @@ tasks {
             rename { "${it}_${project.base.archivesName}" }
         }
     }
+
+    register<Copy>("copyJar") {
+        val jarTask = named<Jar>("jar")
+
+        dependsOn(jarTask)
+
+        from(jarTask.flatMap { it.archiveFile })
+
+        into("C:/Users/wakab/AppData/Roaming/.minecraft/mods")
+    }
+
+    named("build") {
+        finalizedBy("copyJar", "publishToMavenLocal")
+    }
 }
 
 // configure the maven publication
 publishing {
     publications {
-        create<MavenPublication>("mavenJava") {
-            artifactId = project.property("archives_base_name") as String
+        create<MavenPublication>("maven") {
             from(components["java"])
+
+            groupId = project.group as String
+            artifactId = project.base.archivesName.get()
+            version = project.version as String
         }
     }
 
