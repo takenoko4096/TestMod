@@ -198,7 +198,7 @@ object TestMod : StarlightModInitializer("testmod") {
         {
             key: value,
             ints: [I; 1, 2, 3, 4],
-            strs: [a, b, "\"string\""],
+            strs: [a, b, "\"str'ing\""],
             nested: {
                 0: 1,
                 list: [a, 0d, 5L, true]
