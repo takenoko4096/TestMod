@@ -1,16 +1,14 @@
 package com.gmail.takenokoii78.testmod
 
 import com.gmail.takenokoii78.mojangson.MojangsonParser
-import com.gmail.takenokoii78.mojangson.values.MojangsonCompound
+import com.gmail.takenokoii78.mojangson.MojangsonSerializer
+import io.github.takenoko4096.starlight.DataDrivenStarlight
 import io.github.takenoko4096.starlight.StarlightModInitializer
 import io.github.takenoko4096.starlight.util.nbt.NbtSerializer
-import io.github.takenoko4096.starlight.util.text.VanillaColor
 import io.github.takenoko4096.starlight.util.text.component
-import net.minecraft.ChatFormatting
-import net.minecraft.network.chat.Component
 import net.minecraft.world.level.block.SoundType
 
-object TestMod : StarlightModInitializer("testmod") {
+object TestModInitializer : StarlightModInitializer("testmod") {
     override fun onInitialize() {
         val whiteLeaves = blockRegistry.register("white_leaves") {
             blockProperties {
@@ -207,9 +205,23 @@ object TestMod : StarlightModInitializer("testmod") {
         """)
 
         commandRegistry.register("foo") {
-            executes {
-                context.source.sendSystemMessage(NbtSerializer.serialize(c))
+            "raw" {
+                executes {
+                    context.source.sendSystemMessage(component {
+                        text(MojangsonSerializer.serialize(c))
+                    })
+                }
+            }
+
+            "component" {
+                executes {
+                    context.source.sendSystemMessage(NbtSerializer.serialize(c))
+                }
             }
         }
+    }
+
+    override fun onServerStart(data: DataDrivenStarlight) {
+        logger.info("server started")
     }
 }
