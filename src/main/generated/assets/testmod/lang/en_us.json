@@ -1,0 +1,9 @@
+{
+  "block.testmod.metal_block": "Metal Block",
+  "block.testmod.prismarine_lamp": "Prismarine Lamp",
+  "block.testmod.test_block": "Test Block",
+  "block.testmod.white_leaves": "White Leaves",
+  "item.testmod.test_sword": "Test Sword",
+  "item.testmod.tick_clock": "Tick Clock",
+  "itemGroup.testmod.test": "Test MOD"
+}

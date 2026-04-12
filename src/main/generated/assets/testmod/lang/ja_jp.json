@@ -1,0 +1,9 @@
+{
+  "block.testmod.metal_block": "謎金属ブロック",
+  "block.testmod.prismarine_lamp": "プリズマリンランプ",
+  "block.testmod.test_block": "テストブロック",
+  "block.testmod.white_leaves": "白めの葉っぱ",
+  "item.testmod.test_sword": "テストソード",
+  "item.testmod.tick_clock": "ティッククロック",
+  "itemGroup.testmod.test": "テストMOD"
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "testmod:block/prismarine_lamp"
+    },
+    "lit=true": {
+      "model": "testmod:block/prismarine_lamp_on"
+    }
+  }
+}
