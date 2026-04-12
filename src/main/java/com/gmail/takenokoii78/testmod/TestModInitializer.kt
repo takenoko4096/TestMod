@@ -1,11 +1,12 @@
 package com.gmail.takenokoii78.testmod
 
-import com.gmail.takenokoii78.mojangson.MojangsonParser
-import com.gmail.takenokoii78.mojangson.MojangsonSerializer
 import io.github.takenoko4096.starlight.DataDrivenStarlight
 import io.github.takenoko4096.starlight.StarlightModInitializer
-import io.github.takenoko4096.starlight.util.nbt.NbtSerializer
-import io.github.takenoko4096.starlight.util.text.component
+import io.github.takenoko4096.starlight.util.sound.PlaySound
+import net.minecraft.server.commands.PlaySoundCommand
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.level.block.SoundType
 
 object TestModInitializer : StarlightModInitializer("testmod") {
@@ -192,31 +193,72 @@ object TestModInitializer : StarlightModInitializer("testmod") {
             }
         }
 
-        val c = MojangsonParser.compound("""
-        {
-            key: value,
-            ints: [I; 1, 2, 3, 4],
-            strs: [a, b, "\"str'ing\""],
-            nested: {
-                0: 1,
-                list: [a, 0d, 5L, true]
+        val tickCock = itemRegistry.register("tick_clock") {
+            itemProperties {
+                translationKeyAuto()
+
+                components {
+                    maxStackSize(1)
+                }
+            }
+
+            customBehaviour {
+                events {
+                    onUse {
+                        val server = level.server ?: return@onUse
+
+                        val manager = level.tickRateManager()
+
+                        if (manager.isFrozen) {
+                            for (player in server.playerList.players) {
+                                PlaySound.playSound(player, SoundEvents.WITHER_SPAWN, 5f, 2f)
+                            }
+                        }
+                        else {
+                            for (player in server.playerList.players) {
+                                PlaySound.playSound(player, SoundEvents.ANVIL_USE, 5f, 2f)
+                            }
+                        }
+
+                        manager.isFrozen = !manager.isFrozen
+
+                        for (player in server.playerList.players) {
+                            player.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false))
+                        }
+                    }
+                }
+            }
+
+            translation {
+                enUs = "Tick Clock"
+                jaJp = "ティッククロック"
+            }
+
+            rendering {
+                model {
+                    val model = itemModels.generated(itemDefaultTexturePath)
+
+                    handling {
+                        use(model)
+                    }
+                }
             }
         }
-        """)
 
-        commandRegistry.register("foo") {
-            "raw" {
-                executes {
-                    context.source.sendSystemMessage(component {
-                        text(MojangsonSerializer.serialize(c))
-                    })
-                }
+        creativeModeTabRegistry.register("test") {
+            translationKeyAuto()
+            translation {
+                enUs = "Test MOD"
+                jaJp = "テストMOD"
             }
-
-            "component" {
-                executes {
-                    context.source.sendSystemMessage(NbtSerializer.serialize(c))
-                }
+            icon(testSword)
+            items {
+                item(testSword)
+                block(testBlock)
+                block(metalBlock)
+                block(whiteLeaves)
+                block(prismarineLamp)
+                item(tickCock)
             }
         }
     }
