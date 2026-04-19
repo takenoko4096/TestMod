@@ -2,8 +2,8 @@ package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.starlight.DataDrivenStarlight
 import io.github.takenoko4096.starlight.StarlightModInitializer
+import io.github.takenoko4096.starlight.render.model.item.builder.condition.Condition
 import io.github.takenoko4096.starlight.util.sound.PlaySound
-import net.minecraft.server.commands.PlaySoundCommand
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
