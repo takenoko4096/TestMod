@@ -2,7 +2,6 @@ package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.starlight.DataDrivenStarlight
 import io.github.takenoko4096.starlight.StarlightModInitializer
-import io.github.takenoko4096.starlight.render.model.item.builder.condition.Condition
 import io.github.takenoko4096.starlight.util.sound.PlaySound
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
@@ -19,18 +18,14 @@ object TestModInitializer : StarlightModInitializer("testmod") {
                 explosionResistance = 0.5f
             }
 
-            itemProperties {
-                translationKeyAuto()
-            }
+            withItem()
 
             rendering {
                 models {
                     val model = blockModels.cubeAll(blockDefaultTexturePath)
 
                     block {
-                        variants {
-                            model.toBlockVariant().use()
-                        }
+                        always(model.toVariant())
                     }
                 }
             }
@@ -48,18 +43,14 @@ object TestModInitializer : StarlightModInitializer("testmod") {
                 sound = SoundType.METAL
             }
 
-            itemProperties {
-                translationKeyAuto()
-            }
+           withItem()
 
             rendering {
                 models {
                     val model = blockModels.cubeAll(blockDefaultTexturePath)
 
                     block {
-                        variants {
-                            model.toBlockVariant().use()
-                        }
+                        always(model.toVariant())
                     }
                 }
             }
@@ -101,9 +92,7 @@ object TestModInitializer : StarlightModInitializer("testmod") {
                 }
             }
 
-            itemProperties {
-                translationKeyAuto()
-            }
+            withItem()
 
             translation {
                 jaJp = "プリズマリンランプ"
@@ -119,13 +108,15 @@ object TestModInitializer : StarlightModInitializer("testmod") {
 
                     block {
                         variants(litProperty) {
-                            off.toBlockVariant().useWhen(false)
-                            on.toBlockVariant().useWhen(true)
+                            case(false, off.toVariant())
+                            case(true, on.toVariant())
                         }
                     }
 
                     item {
-                        off.useAsItemModel()
+                        handling {
+                            use(off)
+                        }
                     }
                 }
             }
@@ -141,22 +132,18 @@ object TestModInitializer : StarlightModInitializer("testmod") {
                     val model = blockModels.cubeAll(blockDefaultTexturePath)
 
                     block {
-                        variants {
-                            model.toBlockVariant().use()
-                        }
+                        always(model.toVariant())
                     }
                 }
 
-                tint {
-                    defaultColor {
+                color {
+                    default {
                         0x1fff80
                     }
                 }
             }
 
-            itemProperties {
-                translationKeyAuto()
-            }
+            withItem()
 
             translation {
                 jaJp = "テストブロック"
@@ -166,8 +153,6 @@ object TestModInitializer : StarlightModInitializer("testmod") {
 
         val testSword = itemRegistry.register("test_sword") {
             itemProperties {
-                translationKeyAuto()
-
                 components {
                     by(templates.sword(32, 6.5))
 
@@ -193,10 +178,8 @@ object TestModInitializer : StarlightModInitializer("testmod") {
             }
         }
 
-        val tickCock = itemRegistry.register("tick_clock") {
+        val tickClock = itemRegistry.register("tick_clock") {
             itemProperties {
-                translationKeyAuto()
-
                 components {
                     maxStackSize(1)
                 }
@@ -246,7 +229,6 @@ object TestModInitializer : StarlightModInitializer("testmod") {
         }
 
         creativeModeTabRegistry.register("test") {
-            translationKeyAuto()
             translation {
                 enUs = "Test MOD"
                 jaJp = "テストMOD"
@@ -258,7 +240,18 @@ object TestModInitializer : StarlightModInitializer("testmod") {
                 block(metalBlock)
                 block(whiteLeaves)
                 block(prismarineLamp)
-                item(tickCock)
+                item(tickClock)
+            }
+        }
+
+        commandRegistry.register("rainbow") {
+            "text"(greedyString()) {
+                executes {
+                    val text = "text"[String::class]
+                    context.successful {
+                        rainbow(text)
+                    }
+                }
             }
         }
     }
