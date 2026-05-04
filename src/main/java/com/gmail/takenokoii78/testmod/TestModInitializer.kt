@@ -4,6 +4,7 @@ import io.github.takenoko4096.starlight.DataDrivenStarlight
 import io.github.takenoko4096.starlight.StarlightModInitializer
 import io.github.takenoko4096.starlight.util.sound.PlaySound
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.util.StringRepresentable
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.level.block.SoundType
@@ -244,12 +245,70 @@ object TestModInitializer : StarlightModInitializer("testmod") {
             }
         }
 
-        commandRegistry.register("rainbow") {
-            "text"(greedyString()) {
-                executes {
-                    val text = "text"[String::class]
-                    context.successful {
-                        rainbow(text)
+        val namedColorArgument = commandRegistry.registerEnumArgument<NamedColorArgument>("named_color")
+
+        commandRegistry.register("color") {
+            "rainbow" {
+                "text"(greedyString()) {
+                    executes {
+                        val text = "text"[String::class]
+                        context.successful {
+                            rainbow {
+                                text(text)
+                            }
+                        }
+                    }
+                }
+            }
+
+            "gradient" {
+                "color1"(namedColorArgument()) {
+                    "color2"(namedColorArgument()) {
+                        "color3"(namedColorArgument()) {
+                            "color4"(namedColorArgument()) {
+                                "text"(greedyString()) {
+                                    executes {
+                                        val text = "text"<String>()
+                                        val c1 = "color1"<NamedColorArgument>().rgb
+                                        val c2 = "color2"<NamedColorArgument>().rgb
+                                        val c3 = "color3"<NamedColorArgument>().rgb
+                                        val c4 = "color4"<NamedColorArgument>().rgb
+                                        context.successful {
+                                            gradient(c1, c2, c3, c4) {
+                                                text(text)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            "text"(greedyString()) {
+                                executes {
+                                    val text = "text"<String>()
+                                    val c1 = "color1"<NamedColorArgument>().rgb
+                                    val c2 = "color2"<NamedColorArgument>().rgb
+                                    val c3 = "color3"<NamedColorArgument>().rgb
+                                    context.successful {
+                                        gradient(c1, c2, c3) {
+                                            text(text)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        "text"(greedyString()) {
+                            executes {
+                                val text = "text"<String>()
+                                val c1 = "color1"<NamedColorArgument>().rgb
+                                val c2 = "color2"<NamedColorArgument>().rgb
+                                context.successful {
+                                    gradient(c1, c2) {
+                                        text(text)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
