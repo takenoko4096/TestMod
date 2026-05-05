@@ -3,7 +3,7 @@ package com.gmail.takenokoii78.testmod
 import io.github.takenoko4096.starlight.text.RgbColor
 import net.minecraft.util.StringRepresentable
 
-enum class NamedColorArgument(val rgb: RgbColor) : StringRepresentable {
+enum class NamedColor(val rgb: RgbColor) : StringRepresentable {
     RED(RgbColor.RED),
     GOLD(RgbColor.GOLD),
     YELLOW(RgbColor.YELLOW),

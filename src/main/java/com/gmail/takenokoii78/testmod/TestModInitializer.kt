@@ -3,8 +3,8 @@ package com.gmail.takenokoii78.testmod
 import io.github.takenoko4096.starlight.DataDrivenStarlight
 import io.github.takenoko4096.starlight.StarlightModInitializer
 import io.github.takenoko4096.starlight.util.sound.PlaySound
+import net.minecraft.core.registries.Registries
 import net.minecraft.sounds.SoundEvents
-import net.minecraft.util.StringRepresentable
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.level.block.SoundType
@@ -245,7 +245,7 @@ object TestModInitializer : StarlightModInitializer("testmod") {
             }
         }
 
-        val namedColorArgument = commandRegistry.registerEnumArgument<NamedColorArgument>("named_color")
+        val namedColorArgument = commandRegistry.registerEnumArgumentType<NamedColor>("named_color")
 
         commandRegistry.register("color") {
             "rainbow" {
@@ -262,17 +262,17 @@ object TestModInitializer : StarlightModInitializer("testmod") {
             }
 
             "gradient" {
-                "color1"(namedColorArgument()) {
-                    "color2"(namedColorArgument()) {
-                        "color3"(namedColorArgument()) {
-                            "color4"(namedColorArgument()) {
+                "color1"(namedColorArgument) {
+                    "color2"(namedColorArgument) {
+                        "color3"(namedColorArgument) {
+                            "color4"(namedColorArgument) {
                                 "text"(greedyString()) {
                                     executes {
                                         val text = "text"<String>()
-                                        val c1 = "color1"<NamedColorArgument>().rgb
-                                        val c2 = "color2"<NamedColorArgument>().rgb
-                                        val c3 = "color3"<NamedColorArgument>().rgb
-                                        val c4 = "color4"<NamedColorArgument>().rgb
+                                        val c1 = "color1"<NamedColor>().rgb
+                                        val c2 = "color2"<NamedColor>().rgb
+                                        val c3 = "color3"<NamedColor>().rgb
+                                        val c4 = "color4"<NamedColor>().rgb
                                         context.successful {
                                             gradient(c1, c2, c3, c4) {
                                                 text(text)
@@ -285,9 +285,9 @@ object TestModInitializer : StarlightModInitializer("testmod") {
                             "text"(greedyString()) {
                                 executes {
                                     val text = "text"<String>()
-                                    val c1 = "color1"<NamedColorArgument>().rgb
-                                    val c2 = "color2"<NamedColorArgument>().rgb
-                                    val c3 = "color3"<NamedColorArgument>().rgb
+                                    val c1 = "color1"<NamedColor>().rgb
+                                    val c2 = "color2"<NamedColor>().rgb
+                                    val c3 = "color3"<NamedColor>().rgb
                                     context.successful {
                                         gradient(c1, c2, c3) {
                                             text(text)
@@ -300,8 +300,8 @@ object TestModInitializer : StarlightModInitializer("testmod") {
                         "text"(greedyString()) {
                             executes {
                                 val text = "text"<String>()
-                                val c1 = "color1"<NamedColorArgument>().rgb
-                                val c2 = "color2"<NamedColorArgument>().rgb
+                                val c1 = "color1"<NamedColor>().rgb
+                                val c2 = "color2"<NamedColor>().rgb
                                 context.successful {
                                     gradient(c1, c2) {
                                         text(text)
@@ -312,6 +312,10 @@ object TestModInitializer : StarlightModInitializer("testmod") {
                     }
                 }
             }
+        }
+
+        debugger("foo") {
+            context.successful { text("foo!") }
         }
     }
 
