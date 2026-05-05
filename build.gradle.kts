@@ -69,7 +69,7 @@ dependencies {
 
     implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_api_version")}")
 
-    implementation("io.github.takenoko4096:Starlight:1.0-SNAPSHOT")
+    implementation("io.github.takenoko4096:Noctiluca:1.0-SNAPSHOT")
 }
 
 tasks {
@@ -80,7 +80,7 @@ tasks {
         inputs.property("kotlin_loader_version", project.property("kotlin_loader_version"))
         inputs.property("fabric_api_version", project.property("fabric_api_version"))
         inputs.property("java_version", javaVersion)
-        inputs.property("starlight_version", project.property("starlight_version"))
+        inputs.property("noctiluca_version", project.property("noctiluca_version"))
         filteringCharset = "UTF-8"
 
         filesMatching("fabric.mod.json") {
@@ -91,7 +91,7 @@ tasks {
                 "kotlin_loader_version" to project.property("kotlin_loader_version")!!,
                 "fabric_api_version" to project.property("fabric_api_version")!!,
                 "java_version" to javaVersion.toString(),
-                "starlight_version" to project.property("starlight_version")!!
+                "noctiluca_version" to project.property("noctiluca_version")!!
             )
         }
     }

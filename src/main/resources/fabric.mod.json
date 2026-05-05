@@ -42,6 +42,6 @@
         "java": ">=${java_version}",
         "fabric-api": ">=${fabric_api_version}",
         "minecraft": "${minecraft_version}",
-        "starlight": "${starlight_version}"
+        "noctiluca": "${noctiluca_version}"
     }
 }

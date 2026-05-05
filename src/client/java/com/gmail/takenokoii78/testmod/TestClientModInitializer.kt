@@ -1,5 +1,5 @@
 package com.gmail.takenokoii78.testmod
 
-import io.github.takenoko4096.starlight.client.StarlightClientModInitializer
+import io.github.takenoko4096.starlight.client.NoctilucaClientModInitializer
 
-object TestClientModInitializer : StarlightClientModInitializer(TestModInitializer)
+object TestClientModInitializer : NoctilucaClientModInitializer(TestModInitializer)

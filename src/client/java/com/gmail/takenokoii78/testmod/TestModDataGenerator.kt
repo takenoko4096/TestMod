@@ -1,5 +1,5 @@
 package com.gmail.takenokoii78.testmod
 
-import io.github.takenoko4096.starlight.datagen.StarlightDataGenerator
+import io.github.takenoko4096.starlight.datagen.NoctilucaDataGenerator
 
-object TestModDataGenerator : StarlightDataGenerator(TestModInitializer)
+object TestModDataGenerator : NoctilucaDataGenerator(TestModInitializer)

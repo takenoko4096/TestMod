@@ -1,15 +1,14 @@
 package com.gmail.takenokoii78.testmod
 
-import io.github.takenoko4096.starlight.DataDrivenStarlight
-import io.github.takenoko4096.starlight.StarlightModInitializer
+import io.github.takenoko4096.starlight.ServerContainer
+import io.github.takenoko4096.starlight.NoctilucaModInitializer
 import io.github.takenoko4096.starlight.util.sound.PlaySound
-import net.minecraft.core.registries.Registries
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.level.block.SoundType
 
-object TestModInitializer : StarlightModInitializer("testmod") {
+object TestModInitializer : NoctilucaModInitializer("testmod") {
     override fun onInitialize() {
         val whiteLeaves = blockRegistry.register("white_leaves") {
             blockProperties {
@@ -319,7 +318,7 @@ object TestModInitializer : StarlightModInitializer("testmod") {
         }
     }
 
-    override fun onServerStart(data: DataDrivenStarlight) {
+    override fun onServerStart(data: ServerContainer) {
         logger.info("server started")
     }
 }
