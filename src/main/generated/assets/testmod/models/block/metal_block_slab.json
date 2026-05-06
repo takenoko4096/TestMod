@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "testmod:block/metal_block",
+    "side": "testmod:block/metal_block",
+    "top": "testmod:block/metal_block"
+  }
+}

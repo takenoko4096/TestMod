@@ -6,7 +6,10 @@ import io.github.takenoko4096.starlight.util.sound.PlaySound
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.level.block.SlabBlock
 import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.state.BlockBehaviour
+import net.minecraft.world.level.block.state.properties.WoodType
 
 object TestModInitializer : NoctilucaModInitializer("testmod") {
     override fun onInitialize() {
@@ -47,11 +50,7 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
 
             rendering {
                 models {
-                    val model = blockModels.cubeAll(blockDefaultTexturePath)
 
-                    block {
-                        always(model.toVariant())
-                    }
                 }
             }
 
@@ -59,6 +58,12 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
                 enUs = "Metal Block"
                 jaJp = "謎金属ブロック"
             }
+
+            withSlab()
+            withStairs()
+            withFence()
+            withWall()
+            withFenceGate()
         }
 
         val prismarineLamp = blockRegistry.register("prismarine_lamp") {
