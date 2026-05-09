@@ -49,9 +49,7 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
            withItem()
 
             rendering {
-                models {
-
-                }
+                models {}
             }
 
             translation {
