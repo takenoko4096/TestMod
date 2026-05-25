@@ -1,7 +1,7 @@
 package com.gmail.takenokoii78.testmod
 
-import io.github.takenoko4096.noctiluca.ServerContainer
 import io.github.takenoko4096.noctiluca.NoctilucaModInitializer
+import io.github.takenoko4096.noctiluca.ServerContainer
 import io.github.takenoko4096.noctiluca.util.sound.PlaySound
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
@@ -20,13 +20,11 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
 
             withItem()
 
-            rendering {
-                models {
-                    val model = blockModels.cubeAll(blockDefaultTexturePath)
+            model {
+                val model = blockModels.cubeAll(blockDefaultTexturePath)
 
-                    block {
-                        always(model.toVariant())
-                    }
+                block {
+                    always(model.toVariant())
                 }
             }
 
@@ -43,11 +41,9 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
                 sound = SoundType.METAL
             }
 
-           withItem()
+            withItem()
 
-            rendering {
-                models {}
-            }
+            model {}
 
             translation {
                 enUs = "Metal Block"
@@ -64,24 +60,20 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
         val prismarineLamp = blockRegistry.register("prismarine_lamp") {
             val lit = "lit"
 
-            val info = customBehaviour {
-                val properties = blockStates {
-                    booleanProperty(lit) {
-                        defaultValue = false
-                    }
-                }
-
-                val litProperty = properties.boolean(lit)
-
-                events {
-                    onInteract {
-                        val value = blockState.getValue(litProperty)
-                        level.setBlockAndUpdate(blockPos, blockState.setValue(litProperty, !value))
-                    }
+            val properties = blockStates {
+                booleanProperty(lit) {
+                    defaultValue = false
                 }
             }
 
-            val litProperty = info.properties.boolean(lit)
+            val litProperty = properties.boolean(lit)
+
+            events {
+                onInteract {
+                    val value = blockState.getValue(litProperty)
+                    level.setBlockAndUpdate(blockPos, blockState.setValue(litProperty, !value))
+                }
+            }
 
             blockProperties {
                 destroyTime = 0.5f
@@ -99,24 +91,22 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
                 enUs = "Prismarine Lamp"
             }
 
-            rendering {
-                models {
-                    val off = blockModels.cubeAll(blockDefaultTexturePath)
-                    val on = blockModels.cubeAll(blockDefaultTexturePath underscore "on") {
-                        suffix = "on"
-                    }
+            model {
+                val off = blockModels.cubeAll(blockDefaultTexturePath)
+                val on = blockModels.cubeAll(blockDefaultTexturePath underscore "on") {
+                    suffix = "on"
+                }
 
-                    block {
-                        variants(litProperty) {
-                            case(false, off.toVariant())
-                            case(true, on.toVariant())
-                        }
+                block {
+                    variants(litProperty) {
+                        case(false, off.toVariant())
+                        case(true, on.toVariant())
                     }
+                }
 
-                    item {
-                        handling {
-                            use(off)
-                        }
+                item {
+                    handling {
+                        use(off)
                     }
                 }
             }
@@ -127,19 +117,17 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
                 occlusion = false
             }
 
-            rendering {
-                models {
-                    val model = blockModels.cubeAll(blockDefaultTexturePath)
+            model {
+                val model = blockModels.cubeAll(blockDefaultTexturePath)
 
-                    block {
-                        always(model.toVariant())
-                    }
+                block {
+                    always(model.toVariant())
                 }
+            }
 
-                color {
-                    default {
-                        0x1fff80
-                    }
+            color {
+                default {
+                    0x1fff80
                 }
             }
 
@@ -167,13 +155,11 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
                 enUs = "Test Sword"
             }
 
-            rendering {
-                model {
-                    val model = itemModels.handheld(itemDefaultTexturePath)
+            model {
+                val model = itemModels.handheld(itemDefaultTexturePath)
 
-                    handling {
-                        use(model)
-                    }
+                handling {
+                    use(model)
                 }
             }
         }
@@ -185,29 +171,27 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
                 }
             }
 
-            customBehaviour {
-                events {
-                    onUse {
-                        val server = level.server ?: return@onUse
+            events {
+                onUse {
+                    val server = level.server ?: return@onUse
 
-                        val manager = level.tickRateManager()
+                    val manager = level.tickRateManager()
 
-                        if (manager.isFrozen) {
-                            for (player in server.playerList.players) {
-                                PlaySound.playSound(player, SoundEvents.WITHER_SPAWN, 5f, 2f)
-                            }
-                        }
-                        else {
-                            for (player in server.playerList.players) {
-                                PlaySound.playSound(player, SoundEvents.ANVIL_USE, 5f, 2f)
-                            }
-                        }
-
-                        manager.isFrozen = !manager.isFrozen
-
+                    if (manager.isFrozen) {
                         for (player in server.playerList.players) {
-                            player.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false))
+                            PlaySound.playSound(player, SoundEvents.WITHER_SPAWN, 5f, 2f)
                         }
+                    }
+                    else {
+                        for (player in server.playerList.players) {
+                            PlaySound.playSound(player, SoundEvents.ANVIL_USE, 5f, 2f)
+                        }
+                    }
+
+                    manager.isFrozen = !manager.isFrozen
+
+                    for (player in server.playerList.players) {
+                        player.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20, 0, false, false))
                     }
                 }
             }
@@ -217,13 +201,11 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
                 jaJp = "ティッククロック"
             }
 
-            rendering {
-                model {
-                    val model = itemModels.generated(itemDefaultTexturePath)
+            model {
+                val model = itemModels.generated(itemDefaultTexturePath)
 
-                    handling {
-                        use(model)
-                    }
+                handling {
+                    use(model)
                 }
             }
         }

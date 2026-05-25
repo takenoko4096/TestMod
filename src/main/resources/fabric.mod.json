@@ -13,7 +13,7 @@
         "client": [
             {
                 "adapter": "kotlin",
-                "value": "com.gmail.takenokoii78.testmod.TestClientModInitializer"
+                "value": "com.gmail.takenokoii78.testmod.client.TestClientModInitializer"
             }
         ],
         "main": [
@@ -25,7 +25,7 @@
         "fabric-datagen": [
             {
                 "adapter": "kotlin",
-                "value": "com.gmail.takenokoii78.testmod.TestModDataGenerator"
+                "value": "com.gmail.takenokoii78.testmod.client.TestModDataGenerator"
             }
         ]
     },
