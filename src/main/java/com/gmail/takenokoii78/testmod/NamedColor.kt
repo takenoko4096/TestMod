@@ -1,6 +1,6 @@
 package com.gmail.takenokoii78.testmod
 
-import io.github.takenoko4096.starlight.text.RgbColor
+import io.github.takenoko4096.noctiluca.text.RgbColor
 import net.minecraft.util.StringRepresentable
 
 enum class NamedColor(val rgb: RgbColor) : StringRepresentable {

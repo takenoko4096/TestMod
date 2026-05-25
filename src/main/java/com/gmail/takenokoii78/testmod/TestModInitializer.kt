@@ -1,15 +1,12 @@
 package com.gmail.takenokoii78.testmod
 
-import io.github.takenoko4096.starlight.ServerContainer
-import io.github.takenoko4096.starlight.NoctilucaModInitializer
-import io.github.takenoko4096.starlight.util.sound.PlaySound
+import io.github.takenoko4096.noctiluca.ServerContainer
+import io.github.takenoko4096.noctiluca.NoctilucaModInitializer
+import io.github.takenoko4096.noctiluca.util.sound.PlaySound
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
-import net.minecraft.world.level.block.SlabBlock
 import net.minecraft.world.level.block.SoundType
-import net.minecraft.world.level.block.state.BlockBehaviour
-import net.minecraft.world.level.block.state.properties.WoodType
 
 object TestModInitializer : NoctilucaModInitializer("testmod") {
     override fun onInitialize() {
