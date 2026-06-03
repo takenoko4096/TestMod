@@ -2,10 +2,14 @@ package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.noctiluca.NoctilucaModInitializer
 import io.github.takenoko4096.noctiluca.ServerContainer
+import io.github.takenoko4096.noctiluca.portal.PortalType
+import io.github.takenoko4096.noctiluca.text.RgbColor
 import io.github.takenoko4096.noctiluca.util.sound.PlaySound
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.item.Items
+import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.SoundType
 
 object TestModInitializer : NoctilucaModInitializer("testmod") {
@@ -122,12 +126,6 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
 
                 block {
                     always(model.toVariant())
-                }
-            }
-
-            color {
-                default {
-                    0x1fff80
                 }
             }
 
@@ -298,6 +296,27 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
         debugger("foo") {
             context.successful { text("foo!") }
         }
+
+        PortalType.register(
+            identifierOf("redstone"),
+            Blocks.REDSTONE_BLOCK,
+            RgbColor.DARK_RED.withAlpha(255),
+            Items.REDSTONE_TORCH
+        )
+
+        PortalType.register(
+            identifierOf("end"),
+            Blocks.END_STONE_BRICKS,
+            RgbColor.LIGHT_PURPLE.withAlpha(255),
+            Items.ENDER_EYE
+        )
+
+        PortalType.register(
+            identifierOf("book"),
+            Blocks.BOOKSHELF,
+            RgbColor.GOLD.withAlpha(255),
+            Items.BOOK
+        )
     }
 
     override fun onServerStart(data: ServerContainer) {
