@@ -3,8 +3,13 @@ package com.gmail.takenokoii78.testmod
 import io.github.takenoko4096.noctiluca.NoctilucaModInitializer
 import io.github.takenoko4096.noctiluca.ServerContainer
 import io.github.takenoko4096.noctiluca.portal.PortalType
+import io.github.takenoko4096.noctiluca.registry.block.templates.PortalBlockTemplate
+import io.github.takenoko4096.noctiluca.render.TexturePath
 import io.github.takenoko4096.noctiluca.text.RgbColor
 import io.github.takenoko4096.noctiluca.util.sound.PlaySound
+import net.minecraft.core.particles.DustParticleOptions
+import net.minecraft.core.particles.ParticleOptions
+import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -297,25 +302,23 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
             context.successful { text("foo!") }
         }
 
+        val redstonePortalBlock = blockRegistry.registerUsingTemplate("redstone_portal", PortalBlockTemplate {
+            ambient {
+                particle = DustParticleOptions(
+                    RgbColor.RED.withAlpha(255).argbValue,
+                    1f
+                )
+            }
+
+            color = RgbColor.DARK_RED.withAlpha(255)
+            texturePath = customPortalTexturePath
+        })
+
         PortalType.register(
             identifierOf("redstone"),
             Blocks.REDSTONE_BLOCK,
-            RgbColor.DARK_RED.withAlpha(255),
-            Items.REDSTONE_TORCH
-        )
-
-        PortalType.register(
-            identifierOf("end"),
-            Blocks.END_STONE_BRICKS,
-            RgbColor.LIGHT_PURPLE.withAlpha(255),
-            Items.ENDER_EYE
-        )
-
-        PortalType.register(
-            identifierOf("book"),
-            Blocks.BOOKSHELF,
-            RgbColor.GOLD.withAlpha(255),
-            Items.BOOK
+            redstonePortalBlock,
+            Items.REDSTONE_TORCH,
         )
     }
 
