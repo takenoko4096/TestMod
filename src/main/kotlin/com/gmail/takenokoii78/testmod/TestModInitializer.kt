@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.SoundType
 
@@ -319,6 +320,8 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
             Blocks.REDSTONE_BLOCK,
             redstonePortalBlock,
             Items.REDSTONE_TORCH,
+            Level.OVERWORLD,
+            Level.NETHER
         )
     }
 
