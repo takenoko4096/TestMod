@@ -2,6 +2,7 @@ package com.gmail.takenokoii78.testmod
 
 import io.github.takenoko4096.noctiluca.NoctilucaModInitializer
 import io.github.takenoko4096.noctiluca.ServerContainer
+import io.github.takenoko4096.noctiluca.portal.PortalIgnitionSource
 import io.github.takenoko4096.noctiluca.portal.PortalType
 import io.github.takenoko4096.noctiluca.registry.block.templates.PortalBlockTemplate
 import io.github.takenoko4096.noctiluca.render.TexturePath
@@ -319,7 +320,7 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
             identifierOf("redstone"),
             Blocks.REDSTONE_BLOCK,
             redstonePortalBlock,
-            Items.REDSTONE_TORCH,
+            PortalIgnitionSource.item(Items.FLINT_AND_STEEL),
             Level.OVERWORLD,
             Level.NETHER
         )
