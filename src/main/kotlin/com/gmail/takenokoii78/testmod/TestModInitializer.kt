@@ -320,7 +320,7 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
             identifierOf("redstone"),
             Blocks.REDSTONE_BLOCK,
             redstonePortalBlock,
-            PortalIgnitionSource.item(Items.FLINT_AND_STEEL),
+            PortalIgnitionSource.block(Blocks.FIRE),
             Level.OVERWORLD,
             Level.NETHER
         )
