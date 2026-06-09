@@ -16,6 +16,7 @@ import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.BaseFireBlock
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.SoundType
 
@@ -320,7 +321,10 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
             identifierOf("redstone"),
             Blocks.REDSTONE_BLOCK,
             redstonePortalBlock,
-            PortalIgnitionSource.block(Blocks.FIRE),
+            setOf(
+                PortalIgnitionSource.block(Blocks.REDSTONE_TORCH),
+                PortalIgnitionSource.block(Blocks.REDSTONE_WALL_TORCH)
+            ),
             Level.OVERWORLD,
             Level.NETHER
         )
