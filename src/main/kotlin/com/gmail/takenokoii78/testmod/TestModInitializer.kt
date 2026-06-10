@@ -322,8 +322,8 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
             Blocks.REDSTONE_BLOCK,
             redstonePortalBlock,
             setOf(
-                PortalIgnitionSource.block(Blocks.REDSTONE_TORCH),
-                PortalIgnitionSource.block(Blocks.REDSTONE_WALL_TORCH)
+                PortalIgnitionSource.item(Items.REDSTONE_TORCH),
+                PortalIgnitionSource.FIRE
             ),
             Level.OVERWORLD,
             Level.NETHER
