@@ -12,6 +12,7 @@ import net.minecraft.core.particles.DustParticleOptions
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.Items
@@ -84,6 +85,7 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
                 onInteract {
                     val value = blockState.getValue(litProperty)
                     level.setBlockAndUpdate(blockPos, blockState.setValue(litProperty, !value))
+                    interactionResult = InteractionResult.SUCCESS
                 }
             }
 
