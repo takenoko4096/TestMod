@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "testmod:block/purple_portal",
+      "y": 90
+    },
+    "axis=z": {
+      "model": "testmod:block/purple_portal"
+    }
+  }
+}

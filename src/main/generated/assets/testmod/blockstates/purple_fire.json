@@ -1,0 +1,232 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "testmod:block/purple_fire_floor_0"
+        },
+        {
+          "model": "testmod:block/purple_fire_floor_1"
+        }
+      ],
+      "when": {
+        "AND": [
+          {
+            "south": "false"
+          },
+          {
+            "north": "false"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "west": "false"
+          },
+          {
+            "up": "false"
+          }
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "testmod:block/purple_fire_side_0"
+        },
+        {
+          "model": "testmod:block/purple_fire_side_1"
+        },
+        {
+          "model": "testmod:block/purple_fire_side_alt_0"
+        },
+        {
+          "model": "testmod:block/purple_fire_side_alt_1"
+        }
+      ],
+      "when": {
+        "OR": [
+          {
+            "AND": [
+              {
+                "south": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              },
+              {
+                "up": "false"
+              }
+            ]
+          },
+          {
+            "north": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "testmod:block/purple_fire_side_0",
+          "y": 90
+        },
+        {
+          "model": "testmod:block/purple_fire_side_1",
+          "y": 90
+        },
+        {
+          "model": "testmod:block/purple_fire_side_alt_0",
+          "y": 90
+        },
+        {
+          "model": "testmod:block/purple_fire_side_alt_1",
+          "y": 90
+        }
+      ],
+      "when": {
+        "OR": [
+          {
+            "AND": [
+              {
+                "south": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              },
+              {
+                "up": "false"
+              }
+            ]
+          },
+          {
+            "east": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "testmod:block/purple_fire_side_0",
+          "y": 180
+        },
+        {
+          "model": "testmod:block/purple_fire_side_1",
+          "y": 180
+        },
+        {
+          "model": "testmod:block/purple_fire_side_alt_0",
+          "y": 180
+        },
+        {
+          "model": "testmod:block/purple_fire_side_alt_1",
+          "y": 180
+        }
+      ],
+      "when": {
+        "OR": [
+          {
+            "AND": [
+              {
+                "south": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              },
+              {
+                "up": "false"
+              }
+            ]
+          },
+          {
+            "south": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "testmod:block/purple_fire_side_0",
+          "y": 270
+        },
+        {
+          "model": "testmod:block/purple_fire_side_1",
+          "y": 270
+        },
+        {
+          "model": "testmod:block/purple_fire_side_alt_0",
+          "y": 270
+        },
+        {
+          "model": "testmod:block/purple_fire_side_alt_1",
+          "y": 270
+        }
+      ],
+      "when": {
+        "OR": [
+          {
+            "AND": [
+              {
+                "south": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              },
+              {
+                "up": "false"
+              }
+            ]
+          },
+          {
+            "west": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "testmod:block/purple_fire_up_0"
+        },
+        {
+          "model": "testmod:block/purple_fire_up_1"
+        },
+        {
+          "model": "testmod:block/purple_fire_up_alt_0"
+        },
+        {
+          "model": "testmod:block/purple_fire_up_alt_1"
+        }
+      ],
+      "when": {
+        "up": "true"
+      }
+    }
+  ]
+}

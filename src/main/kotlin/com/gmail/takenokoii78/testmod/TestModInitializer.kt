@@ -4,20 +4,22 @@ import io.github.takenoko4096.noctiluca.NoctilucaModInitializer
 import io.github.takenoko4096.noctiluca.ServerContainer
 import io.github.takenoko4096.noctiluca.portal.PortalIgnitionSource
 import io.github.takenoko4096.noctiluca.portal.PortalType
+import io.github.takenoko4096.noctiluca.registry.block.templates.FireBlockTemplate
 import io.github.takenoko4096.noctiluca.registry.block.templates.PortalBlockTemplate
+import io.github.takenoko4096.noctiluca.registry.item.templates.FlintAndSteelItemTemplate
 import io.github.takenoko4096.noctiluca.render.TexturePath
 import io.github.takenoko4096.noctiluca.text.RgbColor
 import io.github.takenoko4096.noctiluca.util.sound.PlaySound
 import net.minecraft.core.particles.DustParticleOptions
-import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.BaseFireBlock
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.SoundType
 
@@ -330,6 +332,70 @@ object TestModInitializer : NoctilucaModInitializer("testmod") {
             Level.OVERWORLD,
             Level.NETHER
         )
+
+        val purpleFireBlock = blockRegistry.registerUsingTemplate("purple_fire", FireBlockTemplate {
+            ambient {
+                sound {
+                    soundEvent = SoundEvents.FIRE_AMBIENT
+                }
+
+                particle = ParticleTypes.LARGE_SMOKE
+            }
+
+            flammability {
+                setByUsingVanilla()
+            }
+
+            texturePath0 = customFireTexturePath0
+            texturePath1 = customFireTexturePath1
+
+            color = RgbColor.LIGHT_PURPLE.withAlpha(255)
+        })
+
+        val purplePortalBlock = blockRegistry.registerUsingTemplate("purple_portal", PortalBlockTemplate {
+            ambient {
+                sound {
+                    soundEvent = SoundEvents.PORTAL_AMBIENT
+                }
+
+                particle = DustParticleOptions(RgbColor.LIGHT_PURPLE.withAlpha(255).argbValue, 0.5f)
+            }
+
+            color = RgbColor.LIGHT_PURPLE.withAlpha(255)
+
+            texturePath = customPortalTexturePath
+        })
+
+        PortalType.register(
+            identifierOf("purple"),
+            Blocks.AMETHYST_BLOCK,
+            purplePortalBlock,
+            setOf(PortalIgnitionSource.fire(purpleFireBlock)),
+            Level.OVERWORLD,
+            ResourceKey.create(Registries.DIMENSION, identifierOf("the_aether"))
+        )
+
+        itemRegistry.registerUsingTemplate("purple_flint_and_steel", FlintAndSteelItemTemplate {
+            durability = 64
+
+            model {
+                val model = itemModels.generated(TexturePath.minecraft("item/flint_and_steel"))
+
+                handling {
+                    use(model, RgbColor.DARK_PURPLE.withAlpha(255))
+                }
+            }
+
+            fire(purpleFireBlock)
+
+            sound {
+                soundEvent = SoundEvents.FIRECHARGE_USE
+            }
+
+            translation {
+                enUs = "Purple Flint And Steel"
+            }
+        })
     }
 
     override fun onServerStart(data: ServerContainer) {
